@@ -9,6 +9,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final status = await FirebaseMessaging.instance.requestPermission();
   runApp(const MyApp());
 }
 
@@ -53,7 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> initializeFcm() async {
-    final token = await messaging.getToken();
+    final token = await messaging.getToken(
+        vapidKey:
+            'BD_hXW2ctyL4HtvEVxzIUFk0dIqbB_ybYS6AW7526kz87l3RT4quX3LEdpGZxTxCXtUMQV5uCkgli1NK5K1rc4c');
     print(token);
 
     messaging.subscribeToTopic('flamengo');
